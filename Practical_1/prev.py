@@ -9,8 +9,8 @@ end = True if x == 0 and y == 1 and z == 1 else False
 
 if end:
     x = 0
-    y = 1
-    z = 1
+    y = 0
+    z = 0
 else:
     temp = x
     x = y - x
@@ -31,10 +31,10 @@ f"""Content-Type: text/html
 <span> </span>
 <span>{0 if end else y}</span>
 <span> </span>
-<span>{z}</span>
+<span>{1 if end else z}</span>
 <br>
 <a href="next.py">Next</a>
-{'<p href="prev.py">Previous</p>' if end else '<a href="prev.py">Previous</a>'}
+{'<span href="prev.py">Previous</span>' if end else '<a href="prev.py">Previous</a>'}
 </body>
 </html>
 """
