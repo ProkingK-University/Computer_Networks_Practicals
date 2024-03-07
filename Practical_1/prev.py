@@ -25,7 +25,11 @@ with open('numbers.txt', 'w') as f:
 print(
 f"""Content-Type: text/html
 
-<html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Document</title>
+</head>
 <body>
 <span>{'---' if end else x}</span>
 <span> </span>
