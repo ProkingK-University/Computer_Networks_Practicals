@@ -18,9 +18,9 @@ def parse_questions(file_name):
             question['answers'].append(line[1:].strip())
             question['correct'].append(len(question['answers']) - 1)
         elif line.strip() == '':
-            if len(question['answers']) == 0:
+            if len(question['correct']) == 0:
                 question['answers'].append('None of the above')
-                question['correct'].append(0)
+                question['correct'] = [len(question['answers']) - 1]
             elif len(question['correct']) > 1:
                 question['answers'].append('More than one of the above')
                 question['correct'] = [len(question['answers']) - 1]
@@ -33,6 +33,13 @@ def handle_client(conn, addr, questions):
     print('Connected by', addr)
 
     while True:
+
+        conn.sendall(b'\033[2J')
+
+        conn.sendall(f'\033[1;1H'.encode())
+
+        print(questions)
+
         question = random.choice(questions)
         conn.sendall((question['question'] + '\n').encode())
 
@@ -58,7 +65,7 @@ def handle_client(conn, addr, questions):
         if not data or data.decode().strip().upper() != 'Y':
             break
 
-    conn.close()
+        conn.close()
 
 
 def start_server(questions, host='localhost', port=55555):

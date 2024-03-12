@@ -45,14 +45,12 @@ The successor of IPv4 is:
 ?Which of the following is a transport layer protocol?
 -IP
 -ARP
-+TCP
--None of the above
+-TCP
 
 ?Which protocol is used for web browsing?
 -FTP
--ICMP
++ICMP
 +HTTP
--None of the above
 
 ?Which of the following is a network layer protocol?
 -TCP
