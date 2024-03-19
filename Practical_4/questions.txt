@@ -1,0 +1,59 @@
+The successor of IPv4 is:
+-TCP
+-Ethernet
+-IPv5
++IPv6
+-None of the above
+
+?DNS normally uses the following transport layer protocol
+-TCP
++UDP
+-IEEE 802.3
+-All of the above
+
+?Which protocol is used by PING?
+-UDP
++ICMP
+-TCP
+-HTTP
+-None of the above
+
+?What does HTTP stand for?
+-Hyper Text Transfer Protocol
++Hyper Text Transfer Protocol
+-High Transfer Text Protocol
+-None of the above
+
+?Which protocol is used for email transmission?
+-HTTP
+-ICMP
++SMTP
+-None of the above
+
+?Which protocol is used to transfer files on the internet?
+-HTTP
+-ICMP
++FTP
+-None of the above
+
+?What does FTP stand for?
+-Files Transfer Protocol
++File Transfer Protocol
+-Fast Transfer Protocol
+-None of the above
+
+?Which of the following is a transport layer protocol?
+-IP
+-ARP
+-TCP
+
+?Which protocol is used for web browsing?
+-FTP
++ICMP
++HTTP
+
+?Which of the following is a network layer protocol?
+-TCP
+-UDP
++IP
+-None of the above
