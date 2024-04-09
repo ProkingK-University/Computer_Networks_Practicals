@@ -33,12 +33,9 @@ def handle_client(conn, addr, questions):
     print('Connected by', addr)
 
     while True:
-
         conn.sendall(b'\033[2J')
 
         conn.sendall(f'\033[1;1H'.encode())
-
-        print(questions)
 
         question = random.choice(questions)
         conn.sendall((question['question'] + '\n').encode())
@@ -63,20 +60,25 @@ def handle_client(conn, addr, questions):
         data = conn.recv(1024)
 
         if not data or data.decode().strip().upper() != 'Y':
+            print('Connection closed by', addr)
             break
 
-        conn.close()
+    conn.close()
+
+        
 
 
 def start_server(questions, host='localhost', port=55555):
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.bind((host, port))
         s.listen()
+        print("Server listening...")
 
         while True:
             conn, addr = s.accept()
             client_thread = threading.Thread(target=handle_client, args=(conn, addr, questions))
             client_thread.start()
+
 
 questions = parse_questions('questions.txt')
 start_server(questions)
