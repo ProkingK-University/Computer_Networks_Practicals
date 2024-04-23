@@ -1,0 +1,48 @@
+dn: dc=za,dc=example,dc=com
+objectClass: top
+objectClass: domain
+dc: za
+
+dn: ou=ac,dc=za,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: ac
+
+dn: ou=co,dc=za,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: co
+
+dn: ou=gov,dc=za,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: gov
+
+dn: ou=org,dc=za,dc=example,dc=com
+objectClass: top
+objectClass: organizationalUnit
+ou: org
+
+dn: o=university,ou=ac,dc=za,dc=example,dc=com
+objectClass: top
+objectClass: organization
+o: university
+description: IP Address: 137.215.10.220, Name Server: ns2.up.ac.za, Mail Exchanger: aspmx.l.google.com
+
+dn: o=company,ou=co,dc=za,dc=example,dc=com
+objectClass: top
+objectClass: organization
+o: company
+description: IP Address: 203.0.113.1, Name Server: ns.company.co.za, Mail Exchanger: mail.company.co.za
+
+dn: o=government,ou=gov,dc=za,dc=example,dc=com
+objectClass: top
+objectClass: organization
+o: government
+description: IP Address: 198.51.100.1, Name Server: ns.gov.za, Mail Exchanger: mail.gov.za
+
+dn: o=nonprofit,ou=org,dc=za,dc=example,dc=com
+objectClass: top
+objectClass: organization
+o: nonprofit
+description: IP Address: 192.0.2.1, Name Server: ns.nonprofit.org.za, Mail Exchanger: mail.nonprofit.org.za
