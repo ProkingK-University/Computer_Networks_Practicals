@@ -70,9 +70,10 @@ public class QuestionAnswer {
                         if (temp[i].startsWith("+")) {
                             display += "<a href=\"/correct\">" + (char) ('A' + (i - 1)) + ". " + temp[i].substring(1)
                                     + "</a></br>";
-                        }
+                        }else{
                         display += "<a href=\"/incorrect\">" + (char) ('A' + (i - 1)) + ". " + temp[i].substring(1)
                                 + "</br></a>";
+                        }
                     }
                     sendResponse(out);
                 } else if (requestLine.contains("/correct")) {
