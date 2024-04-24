@@ -58,3 +58,65 @@ else:
     # Print the resource records
     print('Resource records:')
     print(response[5:].decode())
+
+# import socket
+# import struct
+
+# # Create a new socket
+# s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+# # Define the server address and port
+# server_address = ('localhost', 389)
+
+# # Connect the socket to the server
+# s.connect(server_address)
+
+# # Define your raw LDAP message here
+# message_id = 1
+# base_object = 'dc=example,dc=com'
+# scope = 2  # wholeSubtree
+# deref_aliases = 0  # neverDerefAliases
+# size_limit = 0
+# time_limit = 0
+# types_only = False
+# filter = '(objectClass=*)'
+# attributes = ['cn', 'mail']
+
+# # Construct the LDAP message
+# ldap_message = struct.pack('!B', 0x30)  # LDAPMessage SEQUENCE tag
+# ldap_message += struct.pack('!B', len(base_object) + len(filter) + len(attributes) + 11)  # Length of the LDAPMessage
+# ldap_message += struct.pack('!B', 0x02)  # messageID INTEGER tag
+# ldap_message += struct.pack('!B', 0x01)  # Length of the messageID
+# ldap_message += struct.pack('!B', message_id)  # messageID
+# ldap_message += struct.pack('!B', 0x63)  # searchRequest tag
+# ldap_message += struct.pack('!B', len(base_object) + len(filter) + len(attributes) + 7)  # Length of the searchRequest
+# ldap_message += struct.pack('!B', 0x04)  # baseObject OCTET STRING tag
+# ldap_message += struct.pack('!B', len(base_object))  # Length of the baseObject
+# ldap_message += base_object.encode()  # baseObject
+# ldap_message += struct.pack('!B', scope)  # scope ENUMERATED
+# ldap_message += struct.pack('!B', deref_aliases)  # derefAliases ENUMERATED
+# ldap_message += struct.pack('!B', size_limit)  # sizeLimit INTEGER
+# ldap_message += struct.pack('!B', time_limit)  # timeLimit INTEGER
+# ldap_message += struct.pack('!B', types_only)  # typesOnly BOOLEAN
+# ldap_message += struct.pack('!B', 0xa0)  # filter tag (present)
+# ldap_message += struct.pack('!B', len(filter) - 2)  # Length of the filter
+# ldap_message += filter.encode()  # filter
+# ldap_message += struct.pack('!B', 0x30)  # attributes SEQUENCE OF tag
+
+# # Add each attribute separately
+# for attribute in attributes:
+#     ldap_message += struct.pack('!B', len(attribute))  # Length of the attribute
+#     ldap_message += attribute.encode()  # attribute
+
+# # Send the raw LDAP message
+# s.sendall(ldap_message)
+
+# # Receive the response
+# data = s.recv(1024)
+
+# response = struct.unpack('!B', data)
+
+# print(response)
+
+# # Close the socket
+# s.close()
