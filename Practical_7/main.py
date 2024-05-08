@@ -53,7 +53,7 @@ for i in range(1, email_count + 1):
             smtp_server.send(b'DATA\n')
             smtp_server.recv(4096)
 
-            warning_message = f'Subject: [BCC Warning] {subject}\n\nYou received a BCC email with the subject: {subject}\n.\n'
+            warning_message = f'Subject: [BCC Warning] {original_subject}\n\nYou received a BCC email with the subject: {original_subject}\n.\n'
             smtp_server.send(warning_message.encode())
             smtp_server.recv(4096)
 
