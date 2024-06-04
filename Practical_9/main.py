@@ -7,6 +7,7 @@ POP3_PROXY_PORT = 12345
 POP3_PROXY_HOST = "localhost"
 
 POP3_PROXY_USER = "prokingk@localhost"
+POP3_PROXY_USER_2 = "admin@localhost"
 POP3_PROXY_PASSWORD = "pas"
 
 # SMTP PROXY
@@ -116,8 +117,9 @@ def handle_pop3_client(client):
     user = receive_line(client)
     print(user.decode())
     array = user.split(b" ")
-    username = array[1].decode()
-    if not user.startswith(b"USER " + POP3_PROXY_USER.encode()):
+    username = array[1].decode().rstrip()
+    print('USER ' + username)
+    if not (user.startswith(b"USER " + POP3_PROXY_USER.encode()) or user.startswith(b"USER " + POP3_PROXY_USER_2.encode())):
         client.sendall(b"-ERR Invalid username\r\n")
         return
 
@@ -142,19 +144,24 @@ def handle_pop3_client(client):
     pop3.sendall(b'PASS ' + POP3_PASSWORD.encode() + b'\r\n')
     response = pop3.recv(4096)
     print(response.decode())
+    
+    print('Before While: ' + username)
 
     # Relay commands
     while True:
         client_command = receive_line(client)
         print(f"Client command: {client_command.decode().rstrip()}")
+        
+        print('After While: ' + username)
 
         if client_command.startswith(b"QUIT"):
             client.sendall(b"+OK Bye\r\n")
             pop3.close()
             break
         
+        
         if client_command.upper().startswith(b"DELE"):
-            if True: #username == ALLOWED_DELETE_USER:
+            if username == ALLOWED_DELETE_USER:
                 client.sendall(response)
                 print("Email deleted")
             else:
@@ -176,15 +183,22 @@ def handle_pop3_client(client):
             log_email_download(username, email_subject)
             print('Logged')
         
-        # Insert the username line for downloaded emails
         if client_command.upper().startswith(b"RETR"):
-            response = b"Handled by " + POP3_PROXY_USER.encode() + b"\r\n" + response
-            print('Handel inserted')
-        
-        # Check if the email subject contains "Confidential"
-        if client_command.upper().startswith(b"RETR") and b"Confidential" in response:
-            response = b"Subject: Just testing\r\n\r\nThis is a cover email.\r\n.\r\n"
-            print('Email hidden')
+            response_lines = response.split(b"\r\n")
+
+            for i, line in enumerate(response_lines):
+                # Handel Email
+                if line.decode().startswith("Date:"):
+                    response_lines.insert(i + 2, b"Handled by " + username.encode())
+                    print('Handel inserted')
+                    break
+                if line.decode().startswith("Subject: Confidential"):
+                    response_lines[i] = b"Subject: Just testing"
+                    response_lines[i + 5] = b"This is a cover email."
+                    print('Email hidden')
+                    break
+
+            response = b"\r\n".join(response_lines)
             
         client.sendall(response)
 
