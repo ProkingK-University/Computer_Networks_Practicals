@@ -144,15 +144,11 @@ def handle_pop3_client(client):
     pop3.sendall(b'PASS ' + POP3_PASSWORD.encode() + b'\r\n')
     response = pop3.recv(4096)
     print(response.decode())
-    
-    print('Before While: ' + username)
 
     # Relay commands
     while True:
         client_command = receive_line(client)
         print(f"Client command: {client_command.decode().rstrip()}")
-        
-        print('After While: ' + username)
 
         if client_command.startswith(b"QUIT"):
             client.sendall(b"+OK Bye\r\n")

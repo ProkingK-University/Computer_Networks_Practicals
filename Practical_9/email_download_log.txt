@@ -1,0 +1,7 @@
+2024-06-04 14:28:57 | admin@localhost | Downloaded email: Unknown
+2024-06-04 14:28:57 | admin@localhost | Downloaded email: Confidential
+2024-06-04 14:30:23 | prokingk@localhost | Downloaded email: Confidential
+2024-06-04 14:31:54 | prokingk@localhost | Downloaded email: Unknown
+2024-06-04 14:31:54 | prokingk@localhost | Downloaded email: Warning
+2024-06-04 14:34:27 | prokingk@localhost | Downloaded email: Banana
+2024-06-04 14:36:29 | prokingk@localhost | Downloaded email: Confidential
