@@ -1,4 +1,5 @@
 import socket
+import datetime
 import threading
 
 # POP3 PROXY
@@ -25,6 +26,8 @@ POP3_PASSWORD = "Kapaso123"
 # SMTP
 SMTP_PORT = 25
 SMTP_HOST = "localhost"
+
+ALLOWED_DELETE_USER = "admin@localhost"
 
 def run_pop3_proxy():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as proxy:
@@ -112,6 +115,8 @@ def handle_pop3_client(client):
     
     user = receive_line(client)
     print(user.decode())
+    array = user.split(b" ")
+    username = array[1].decode()
     if not user.startswith(b"USER " + POP3_PROXY_USER.encode()):
         client.sendall(b"-ERR Invalid username\r\n")
         return
@@ -147,13 +152,41 @@ def handle_pop3_client(client):
             client.sendall(b"+OK Bye\r\n")
             pop3.close()
             break
+        
+        if client_command.upper().startswith(b"DELE"):
+            if True: #username == ALLOWED_DELETE_USER:
+                client.sendall(response)
+                print("Email deleted")
+            else:
+                client.sendall(b"-ERR Permission denied\r\n")
+                print('Delete declined')
 
         pop3.sendall(client_command + b'\n')
         response = pop3.recv(4096)
-        client.sendall(response)
         
-        if client_command.upper().startswith(b"DELE"):
-            continue
+        # Log the email download
+        if client_command.upper().startswith(b"RETR"):
+            subject_lines = [line.decode() for line in response.split(b"\r\n") if line.decode().startswith("Subject:")]
+            
+            if subject_lines:
+                email_subject = subject_lines[0][9:].strip()
+            else:
+                email_subject = "Unknown"
+
+            log_email_download(username, email_subject)
+            print('Logged')
+        
+        # Insert the username line for downloaded emails
+        if client_command.upper().startswith(b"RETR"):
+            response = b"Handled by " + POP3_PROXY_USER.encode() + b"\r\n" + response
+            print('Handel inserted')
+        
+        # Check if the email subject contains "Confidential"
+        if client_command.upper().startswith(b"RETR") and b"Confidential" in response:
+            response = b"Subject: Just testing\r\n\r\nThis is a cover email.\r\n.\r\n"
+            print('Email hidden')
+            
+        client.sendall(response)
 
 def receive_line(socket):
     data = b""
@@ -162,6 +195,12 @@ def receive_line(socket):
         if chunk == b"\n":
             return data
         data += chunk
+
+def log_email_download(username, email_subject):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_entry = f"{timestamp} | {username} | Downloaded email: {email_subject}"
+    with open("email_download_log.txt", "a") as log_file:
+        log_file.write(log_entry + "\n")
 
 def run_proxies():
     pop3_thread = threading.Thread(target=run_pop3_proxy)
