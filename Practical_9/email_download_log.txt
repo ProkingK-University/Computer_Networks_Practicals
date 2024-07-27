@@ -5,3 +5,13 @@
 2024-06-04 14:31:54 | prokingk@localhost | Downloaded email: Warning
 2024-06-04 14:34:27 | prokingk@localhost | Downloaded email: Banana
 2024-06-04 14:36:29 | prokingk@localhost | Downloaded email: Confidential
+2024-06-04 15:01:24 | prokingk@localhost | Downloaded email: Unknown
+2024-06-04 15:01:24 | admin@localhost | Downloaded email: Banana
+2024-06-04 15:01:24 | admin@localhost | Downloaded email: Confidential
+2024-06-04 15:01:29 | admin@localhost | Downloaded email: Warning
+2024-06-04 15:18:00 | prokingk@localhost | Downloaded email: HI
+2024-06-04 15:19:36 | prokingk@localhost | Downloaded email: Confidential
+2024-06-04 15:22:14 | prokingk@localhost | Downloaded email: NO ORDER
+2024-06-04 15:22:49 | admin@localhost | Downloaded email: HI
+2024-06-04 15:22:49 | admin@localhost | Downloaded email: Confidential
+2024-06-04 15:22:49 | admin@localhost | Downloaded email: NO ORDER

@@ -22,7 +22,7 @@ POP3_PORT = 110
 POP3_HOST = "localhost"
 
 POP3_USER = "prokingk"
-POP3_PASSWORD = "Kapaso123"
+POP3_PASSWORD = ""
 
 # SMTP
 SMTP_PORT = 25
